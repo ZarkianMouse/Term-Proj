@@ -66,7 +66,7 @@ else
 					//Close the connection
 					mysqli_stmt_close($stmt);
 				}
-				printf("<p>Use $myuser: Congrats! You have achieved a new high score</p>");
+				printf("<p>User $myuser: Congrats! You have achieved a new high score</p>");
 			}
 			else if ($action == "delete")
 			{
@@ -90,7 +90,7 @@ else
 			$num_rows = mysqli_num_rows($result);
 			//print "Number of rows = $num_rows <br />";
 
-			print "<table><caption> <h2> Users ($num_rows) </h2> </caption>";
+			print "<table><caption> <h2> Overall High Scores </h2> </caption>";
 			print "<tr align = 'center'>";
 
 			$row = mysqli_fetch_array($result);
