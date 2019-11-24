@@ -17,7 +17,10 @@ $username = 'nrbadmin@nrb-term';
 $password = 'M4W1srtA0l9';
 $db_name = 'term_proj';
 if ($myuser == "" || $mypass == "")
-	echo "Cannot proceed with query\n";
+{
+	echo "Cannot proceed with query: All form fields must be filled in\n";
+	printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+}
 else
 {
 	//Establishes the connection
@@ -31,43 +34,49 @@ else
     $score = 0;
 	if($action == "insert")
 	{
-		$query = "insert into Users values($myuser,$mypass, $score)";
-		if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username,Passwd, Score) VALUES (?, ?, ?)")) {
-			mysqli_stmt_bind_param($stmt, 'ssd', $myuser, $mypass, $score);
-			mysqli_stmt_execute($stmt);
-			printf("\n");
-			mysqli_stmt_close($stmt);
+		$query = "SELECT Username FROM Users WHERE Username LIKE '%{$myuser}%'";
+		$res = mysqli_query($conn,$query);
+		if (mysqli_fetch_array($res) == "")
+		{
+			if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username,Passwd, Score) VALUES (?, ?, ?)")) {
+				mysqli_stmt_bind_param($stmt, 'ssd', $myuser, $mypass, $score);
+				mysqli_stmt_execute($stmt);
+				printf("User $myuser added successfully :)\n");
+				mysqli_stmt_close($stmt);
+			}
 		}
-		printf("User $myuser added successfully :)\n");
+		
+		else {
+			printf("<p>Error: User already exists</p>");
+			
+		}
+		printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+		
 	}
 	else
 	{
-		$myrows = 0;
-		$query = "SELECT Username FROM Users WHERE Username LIKE '%{$myuser}%'";
+		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%' && Passwd LIKE '%{$mypass}%'";
 		$res = mysqli_query($conn,$query);
-		//$row = my_sqli_fetch_array($res);
 		if (mysqli_fetch_array($res) == "")
 		{
-			echo "Could not find user: $myuser \n";
+			printf("<p>Error: Could not find user: $myuser <br/> Perhaps you entered the wrong password or username?</p>");
+			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 		}
 		else
 		{
 			printf("<p>Welcome $myuser</p>");
+			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Logout\"></form>");
 			if($action == "display")
     				$query = "";
-			else if ($action == "update")
-			{
-				//Run the Update statement
+				/* //Run the Update statement
 				$new_score = 100;
 				if ($stmt = mysqli_prepare($conn, "UPDATE Users SET Score = ? WHERE Username = ?")) {
 					mysqli_stmt_bind_param($stmt, 'ds', $new_score, $myuser);
 					mysqli_stmt_execute($stmt);
-
 					//Close the connection
 					mysqli_stmt_close($stmt);
 				}
-				printf("<p>User $myuser: Congrats! You have achieved a new high score</p>");
-			}
+				printf("<p>User $myuser: Congrats! You have achieved a new high score</p>"); */
 			else if ($action == "delete")
 			{
 				//Run the Delete statement
@@ -79,24 +88,15 @@ else
 				printf("<p>User $myuser : Your account was deleted successfully</p>");
 		
 			}
-
     
 			// Final Display of All Entries
 			$query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
 			$result = mysqli_query($conn,$query);
-
-			// Get the number of rows in the result, as well as the first row
-			//  and the number of fields in the rows
 			$num_rows = mysqli_num_rows($result);
-			//print "Number of rows = $num_rows <br />";
-
 			print "<table><caption> <h2> Overall High Scores </h2> </caption>";
 			print "<tr align = 'center'>";
-
 			$row = mysqli_fetch_array($result);
 			$num_fields = mysqli_num_fields($result);
-
-			// Produce the column labels
 			$keys = array_keys($row);
 			for ($index = 0; $index < $num_fields; $index++)
 			{
