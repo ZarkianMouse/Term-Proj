@@ -74,9 +74,9 @@ else
 				if ($stmt = mysqli_prepare($conn, "DELETE FROM Users WHERE Username = ?")) {
 					mysqli_stmt_bind_param($stmt, 's', $myuser);
 					mysqli_stmt_execute($stmt);
-					printf("Delete: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
 					mysqli_stmt_close($stmt);
 				}
+				printf("User $myuser : Your account was deleted successfully\n");
 		
 			}
 
