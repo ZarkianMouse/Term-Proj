@@ -12,12 +12,14 @@
 $myuser = $_POST["username"];
 $mypass = $_POST["password"];
 $action = $_POST["action"];
-$statement = $_POST["statement"];
 $host = 'nrb-term.mysql.database.azure.com';
 $username = 'nrbadmin@nrb-term';
 $password = 'M4W1srtA0l9';
 $db_name = 'term_proj';
-
+if ($myuser == "" || mypass == "")
+	echo "Cannot proceed with query\n";
+else
+{
 //Establishes the connection
 $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL, "BaltimoreCyberTrustRoot.crt.pem", NULL, NULL) ; 
@@ -67,8 +69,6 @@ else if ($action == "delete")
 	}
 
 }
-else if ($action == "user")
-    $query = $statement;
 
 
 //if($query != "" && $action != "insert"){
@@ -122,6 +122,7 @@ for ($row_num = 0; $row_num < $num_rows; $row_num++) {
     $row = mysqli_fetch_array($result);
 }
 print "</table>";
+}
 ?>
 	
 		
