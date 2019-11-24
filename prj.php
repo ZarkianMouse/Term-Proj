@@ -16,7 +16,7 @@ $host = 'nrb-term.mysql.database.azure.com';
 $username = 'nrbadmin@nrb-term';
 $password = 'M4W1srtA0l9';
 $db_name = 'term_proj';
-if ($myuser == "" || mypass == "")
+if ($myuser == "" && $mypass == "")
 	echo "Cannot proceed with query\n";
 else
 {
