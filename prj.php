@@ -62,7 +62,7 @@ $num_fields = mysqli_num_fields($res);
 // Produce the column labels
 $keys = array_keys($row);
 for ($index = 0; $index < $num_fields; $index++) 
-    print "<th>" . $keys[2 * $index + 1] . "</th>";
+    print "<th>" . $keys[$index] . "</th>";
 print "</tr>";
     
 // Output the values of the fields in the rows
