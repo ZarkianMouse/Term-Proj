@@ -7,11 +7,39 @@
 	<h1>Welcome to Naomi's Term Project Homepage</h1>
 	<div>
 		<h2> Log in to see the magic happen</h2>
-		<form action="prj.php" target="_self" method="post">
-			username: <input type="text" name="username">
-			password: <input type="text" name="password">
-			<input type="submit" value="Login">
-		</form>
+		<form action = "prj.php"
+          method = "post">
+      <table>
+          <tr>
+            <td>username</td>
+			<td>password</td>
+          </tr>
+          <tr>
+            <td><input type="text" name="username"></td>
+            <td><input type="text" name="password"></td>
+          </tr>
+      </table>
+      <p />
+<h3> Action </h3>
+      <p>
+        <input type = "radio"  name = "action"  value = "display" checked = "checked" />
+		Display all records <br />
+        <input type = "radio"  name = "action"  value = "insert" />
+		Add a new record <br />
+        <input type = "radio"  name = "action"  value = "update" />
+		Update an existing record <br />
+        <input type = "radio"  name = "action"  value = "delete" />
+		Delete an existing record <br />
+        <input type = "text";  name = "statement" size = "40" value = "select * from Corvettes" id = "in" /> <br /><br />
+        <input type = "reset"  value = "Reset Form" />
+        <input type = "submit"  value = "Login" />
+<!--
+        <button type="button" onclick="show()">Show SQL</button><br />
+        <span id = "out" style="color:red"></span> <br /><br />
+-->
+        </p>
+    </form>
+		
 	</div>
 </body>
 </html>
