@@ -10,7 +10,7 @@
 $host = 'nrb-term.mysql.database.azure.com';
 $username = 'nrbadmin@nrb-term';
 $password = 'M4W1srtA0l9';
-$db_name = 'nrb-term';
+$db_name = 'term_proj';
 
 //Establishes the connection
 $conn = mysqli_init();
