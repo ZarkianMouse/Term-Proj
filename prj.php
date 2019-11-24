@@ -20,17 +20,26 @@ if (mysqli_connect_errno($conn)) {
 die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
 
-// Run the create table query
-if (mysqli_query($conn, '
-CREATE TABLE Product`(
-`Id` INT NOT NULL AUTO_INCREMENT ,
-`ProductName` VARCHAR(200) NOT NULL ,
-`Color` VARCHAR(50) NOT NULL ,
-`Price` DOUBLE NOT NULL ,
-PRIMARY KEY (`Id`)
-);
-')) {
-printf("Table created\n");
+//Create an Insert prepared statement and run it
+$username = 'BrandNewProduct';
+$passwd = 'Blue';
+$score = 15;
+if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username, Passwd, Score) VALUES (?, ?, ?)")) {
+mysqli_stmt_bind_param($stmt, 'ssd', $username, $passwd, $score);
+mysqli_stmt_execute($stmt);
+printf("Insert: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
+mysqli_stmt_close($stmt);
+}
+
+//Create an Insert prepared statement and run it
+$product_name = 'BrandNewProduct';
+$product_color = 'Blue';
+$product_price = 15.5;
+if ($stmt = mysqli_prepare($conn, "INSERT INTO Products (ProductName, Color, Price) VALUES (?, ?, ?)")) {
+mysqli_stmt_bind_param($stmt, 'ssd', $product_name, $product_color, $product_price);
+mysqli_stmt_execute($stmt);
+printf("Insert: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
+mysqli_stmt_close($stmt);
 }
 
 //Close the connection
