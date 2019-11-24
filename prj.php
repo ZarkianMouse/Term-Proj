@@ -41,12 +41,15 @@ else
 	}
 	else
 	{
-		$query = "SELECT * FROM Users WHERE Username=?";
-	}
-
-
-
-if($action == "display")
+		$query = "SELECT * FROM Users WHERE Username=$myuser";
+		$res = mysqli_query($conn,$query);
+		
+		if(!$res)
+			printf("Could not find user: "+$myuser);
+		else
+		{
+			printf("Welcome " +$myuser);
+			if($action == "display")
     $query = "";
 else if ($action == "update")
 {
@@ -73,17 +76,6 @@ else if ($action == "delete")
 
 }
 
-
-//if($query != "" && $action != "insert"){
-//    trim($query);
-//    $query_html = htmlspecialchars($query);
-//    print "<b> The query is: </b> " . $query_html . "<br />";
-    
-    // Don't remove or comment out the line below untill you switched to your own database. VIOLATORS WILL BE SEVERELY PUNISHED!!! :-).
-    //$query = "SELECT * FROM Corvettes";
-    
-//    $result = mysqli_query($conn,$query);
-//}
     
 // Final Display of All Entries
 $query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
@@ -104,7 +96,7 @@ $num_fields = mysqli_num_fields($result);
 $keys = array_keys($row);
 for ($index = 0; $index < $num_fields; $index++)
 {
-		print "<th>" . $keys[2 * $index + 1] . "</th>";
+	print "<th>" . $keys[2 * $index + 1] . "</th>";
 }
     
 print "</tr>";
@@ -122,6 +114,12 @@ for ($row_num = 0; $row_num < $num_rows; $row_num++) {
 }
 print "</table>";
 }
+		}
+	}
+
+
+
+
 ?>
 	
 		
