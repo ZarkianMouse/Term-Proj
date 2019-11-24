@@ -41,7 +41,7 @@ else
 	}
 	else
 	{
-		$query = "SELECT * FROM Users WHERE Username=$myuser";
+		$query = "SELECT * FROM Users WHERE $myuser IN Username";
 		$res = mysqli_query($conn,$query);
 		
 		
