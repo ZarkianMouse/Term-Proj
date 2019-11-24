@@ -7,8 +7,7 @@
 	<h1>Welcome to Naomi's Term Project Homepage</h1>
 	<div>
 		<h2> Log in to see the magic happen</h2>
-		<form action = "prj.php"
-          method = "post">
+		<form action = "prj_accessAccount.php" method = "post">
       <table>
           <tr>
             <td>username</td>
@@ -20,19 +19,15 @@
           </tr>
       </table>
       <p />
-<h3> Action </h3>
       <p>
-        <input type = "radio"  name = "action"  value = "insert" />
-		Create Account <br />
-		<input type = "radio"  name = "action"  value = "display" checked = "checked" />
-		Access Current Account <br />
-        <input type = "radio"  name = "action"  value = "delete" />
-		Delete Current Account <br />
-		<br /><br />
-        <input type = "reset"  value = "Reset Form" />
+
         <input type = "submit"  value = "Login" />
         </p>
     </form>
+	
+	<p> Don't have an account yet? <br\>
+	<button onclick="window.location.href = 'prj_addAccount.html';">Create New Account</button>
+	</p>
 		
 	</div>
 </body>
