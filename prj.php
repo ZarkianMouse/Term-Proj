@@ -52,7 +52,7 @@ else
 		}
 		else
 		{
-			printf("Welcome $myuser \n");
+			printf("<p>Welcome $myuser</p>");
 			if($action == "display")
     				$query = "";
 			else if ($action == "update")
@@ -62,11 +62,11 @@ else
 				if ($stmt = mysqli_prepare($conn, "UPDATE Users SET Score = ? WHERE Username = ?")) {
 					mysqli_stmt_bind_param($stmt, 'ds', $new_score, $myuser);
 					mysqli_stmt_execute($stmt);
-					printf("Update: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
 
 					//Close the connection
 					mysqli_stmt_close($stmt);
 				}
+				printf("<p>Use $myuser: Congrats! You have achieved a new high score</p>");
 			}
 			else if ($action == "delete")
 			{
@@ -76,7 +76,7 @@ else
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_close($stmt);
 				}
-				printf("User $myuser : Your account was deleted successfully\n");
+				printf("<p>User $myuser : Your account was deleted successfully</p>");
 		
 			}
 
