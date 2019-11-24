@@ -7,8 +7,12 @@
 
 <body>
 <?php
+    
+// Get input data
 $myuser = $_POST["username"];
 $mypass = $_POST["password"];
+$action = $_POST["action"];
+$statement = $_POST["statement"];
 $host = 'nrb-term.mysql.database.azure.com';
 $username = 'nrbadmin@nrb-term';
 $password = 'M4W1srtA0l9';
@@ -21,39 +25,103 @@ mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_C
 if (mysqli_connect_errno($conn)) {
 die('Failed to connect to MySQL: '.mysqli_connect_error());
 }	
+    
 
+// print "<b> The action is: </b> $action <br />";
 
-//Create an Insert prepared statement and run it
 $score = 0;
-if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username,Passwd, Score) VALUES (?, ?, ?)")) {
-mysqli_stmt_bind_param($stmt, 'ssd', $myuser, $mypass, $score);
-mysqli_stmt_execute($stmt);
-printf("Insert: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
-printf("\n");
-mysqli_stmt_close($stmt);
-}	
 
-	
-//Run the Select query
-printf("Reading data from table: \n");
-$res = mysqli_query($conn, 'SELECT * FROM Users');
-echo "<table><tr><th colspan=\"2\">MyUsers</th></tr>";
-echo "<tr><td>Username</td><td>Score</td></tr>";
-while ($row = mysqli_fetch_assoc($res)) {
-echo "<tr><td>" . $row['Username'] . "</td><td>" . $row['Score'] . "</td></tr>";
+if($action == "display")
+    $query = "";
+else if ($action == "insert")
+{
+    $query = "insert into Users values($myuser,$mypass, $score)";
+	if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username,Passwd, Score) VALUES (?, ?, ?)")) {
+		mysqli_stmt_bind_param($stmt, 'ssd', $myuser, $mypass, $score);
+		mysqli_stmt_execute($stmt);
+		printf("\n");
+		mysqli_stmt_close($stmt);
+	}	
 }
-echo "</table>";
+else if ($action == "update")
+{
+	//Run the Update statement
+$new_score = 100;
+if ($stmt = mysqli_prepare($conn, "UPDATE Users SET Score = ? WHERE Username = ?")) {
+mysqli_stmt_bind_param($stmt, 'ds', $new_score, $myuser);
+mysqli_stmt_execute($stmt);
+printf("Update: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
 
-if (!$res) {
-    print "Error - the query could not be executed";
-    $error = mysqli_error();
-    print "<p>" . $error . "</p>";
-    exit;
-}		
-	
-	
 //Close the connection
-mysqli_close($conn);
+mysqli_stmt_close($stmt);
+}
+}
+else if ($action == "delete")
+{
+	//Run the Delete statement
+	if ($stmt = mysqli_prepare($conn, "DELETE FROM Users WHERE Username = ?")) {
+	mysqli_stmt_bind_param($stmt, 's', $myuser);
+	mysqli_stmt_execute($stmt);
+	printf("Delete: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
+	mysqli_stmt_close($stmt);
+	}
+
+}
+else if ($action == "user")
+    $query = $statement;
+
+
+//if($query != "" && $action != "insert"){
+//    trim($query);
+//    $query_html = htmlspecialchars($query);
+//    print "<b> The query is: </b> " . $query_html . "<br />";
+    
+    // Don't remove or comment out the line below untill you switched to your own database. VIOLATORS WILL BE SEVERELY PUNISHED!!! :-).
+    //$query = "SELECT * FROM Corvettes";
+    
+//    $result = mysqli_query($conn,$query);
+//}
+    
+// Final Display of All Entries
+$query = "SELECT * FROM Users";
+$result = mysqli_query($conn,$query);
+
+// Get the number of rows in the result, as well as the first row
+//  and the number of fields in the rows
+$num_rows = mysqli_num_rows($result);
+//print "Number of rows = $num_rows <br />";
+
+print "<table><caption> <h2> Users ($num_rows) </h2> </caption>";
+print "<tr align = 'center'>";
+
+$row = mysqli_fetch_array($result);
+$num_fields = mysqli_num_fields($result);
+
+// Produce the column labels
+$keys = array_keys($row);
+for ($index = 0; $index < $num_fields; $index++)
+{
+	if ($index != 1)
+		print "<th>" . $keys[2 * $index + 1] . "</th>";
+}
+    
+print "</tr>";
+    
+// Output the values of the fields in the rows
+for ($row_num = 0; $row_num < $num_rows; $row_num++) {
+    print "<tr align = 'center'>";
+    $values = array_values($row);
+    for ($index = 0; $index < $num_fields; $index++){
+		if ($index != 1)
+		{
+			$value = htmlspecialchars($values[2 * $index + 1]);
+			print "<th>" . $value . "</th> ";
+		}
+    }
+    print "</tr>";
+    $row = mysqli_fetch_array($result);
+}
+print "</table>";
 ?>
 	
 		
