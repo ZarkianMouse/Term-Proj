@@ -37,7 +37,8 @@ else
 			mysqli_stmt_execute($stmt);
 			printf("\n");
 			mysqli_stmt_close($stmt);
-		}	
+		}
+		printf("User $myuser added successfully :)\n");
 	}
 	else
 	{
