@@ -42,16 +42,11 @@ else
 	else
 	{
 		$myrows = 0;
-		if ($stmt = mysqli_prepare($conn, "SELECT FROM Users WHERE Username = ?")) {
-			mysqli_stmt_bind_param($stmt, 's', $myuser);
-			mysqli_stmt_execute($stmt);
-			$myrows = mysqli_stmt_affected_rows($stmt);
-			printf("Select: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
-			mysqli_stmt_close($stmt);
-		}
+		$query = "SELECT Username FROM Users WHERE $myuser IN (Username)";
+		$res = mysqli_query($conn,$query);
 		
 		
-		if($myrows == 0)
+		if($res)
 			printf("Could not find user: $myuser");
 		else
 		{
