@@ -39,7 +39,7 @@ printf("Reading data from table: \n");
 $res = mysqli_query($conn, 'SELECT * FROM Users');
 while ($row = mysqli_fetch_assoc($res)) {
 echo "<tr><td>" . $row['username'] . "</td><td>" . $row['score'] . "</td></tr>";
-//var_dump($row);
+var_dump($row);
 }
 
 if (!$res) {
