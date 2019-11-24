@@ -114,7 +114,7 @@ else
     			$row = mysqli_fetch_array($result);
 			}
 			print "</table>";
-		//}
+		}
 }
 ?>
 </body>
