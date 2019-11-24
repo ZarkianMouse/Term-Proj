@@ -37,8 +37,8 @@ mysqli_stmt_close($stmt);
 //Run the Select query
 printf("Reading data from table: \n");
 $res = mysqli_query($conn, 'SELECT * FROM Users');
-echo "<table><th><td colspan=\"2\"><h2>MyUsers</h2></td></th>";
-echo "<th><td>Username</td><td>Score</td>";
+echo "<table><tr><th colspan=\"2\">MyUsers</th></tr>";
+echo "<tr><td>Username</td><td>Score</td></tr>";
 while ($row = mysqli_fetch_assoc($res)) {
 echo "<tr><td>" . $row['Username'] . "</td><td>" . $row['Score'] . "</td></tr>";
 }
