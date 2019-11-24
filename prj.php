@@ -24,7 +24,7 @@ die('Failed to connect to MySQL: '.mysqli_connect_error());
 $username = 'BrandNewProduct';
 $passwd = 'Blue';
 $score = 15;
-if ($stmt = mysqli_prepare($conn, "INSERT INTO Users (Username, Passwd, Score) VALUES (?, ?, ?)")) {
+if ($stmt = mysqli_prepare($conn, "INSERT INTO User (Username, Passwd, Score) VALUES (?, ?, ?)")) {
 mysqli_stmt_bind_param($stmt, 'ssd', $username, $passwd, $score);
 mysqli_stmt_execute($stmt);
 printf("Insert: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
