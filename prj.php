@@ -41,7 +41,7 @@ else
 	}
 	else
 	{
-		$query = "SELECT * FROM Users WHERE Username";
+		$query = "SELECT * FROM Users WHERE Username=?";
 	}
 
 
@@ -86,7 +86,7 @@ else if ($action == "delete")
 //}
     
 // Final Display of All Entries
-$query = "SELECT Username, Score FROM Users";
+$query = "SELECT Username, Score FROM Users ORDER BY Score";
 $result = mysqli_query($conn,$query);
 
 // Get the number of rows in the result, as well as the first row
