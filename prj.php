@@ -41,14 +41,14 @@ else
 	}
 	else
 	{
-		//$query = "SELECT * FROM Users WHERE $myuser IN Username";
-		//$res = mysqli_query($conn,$query);
+		$query = "SELECT * FROM Users WHERE $myuser IN Username";
+		$res = mysqli_query($conn,$query);
 		
 		
-		//if(!$res)
+		if(!$res)
 			printf("Could not find user: $myuser");
-		//else
-		//{
+		else
+		{
 			printf("Welcome $myuser");
 			if($action == "display")
     				$query = "";
@@ -114,7 +114,8 @@ else
     			$row = mysqli_fetch_array($result);
 			}
 			print "</table>";
-		}
+		}	
+	}
 }
 ?>
 </body>
