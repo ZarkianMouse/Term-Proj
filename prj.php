@@ -46,7 +46,8 @@ else
 		$res = mysqli_query($conn,$query);
 		
 		
-		if($res)
+		
+		if(!$res)
 			printf("Could not find user: $myuser");
 		else
 		{
