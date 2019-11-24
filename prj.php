@@ -48,11 +48,11 @@ else
 		//$row = my_sqli_fetch_array($res);
 		if (mysqli_fetch_array($res) == "")
 		{
-			echo "Could not find user: $myuser";
+			echo "Could not find user: $myuser \n";
 		}
 		else
 		{
-			printf("Welcome $myuser");
+			printf("Welcome $myuser \n");
 			if($action == "display")
     				$query = "";
 			else if ($action == "update")
