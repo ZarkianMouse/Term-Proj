@@ -46,7 +46,11 @@ else
 		$res = mysqli_query($conn,$query);
 		
 		
-		
+		while ($row = mysqli_fetch_array($res))
+{
+        echo $row['Username'] . " " . $row['Score'];
+        echo "<br>";
+}
 		if(!$res)
 			printf("Could not find user: $myuser");
 		else
