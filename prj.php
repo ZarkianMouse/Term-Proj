@@ -42,7 +42,7 @@ else
 	else
 	{
 		$myrows = 0;
-		$query = "SELECT Username FROM Users WHERE $myuser IN (Username)";
+		$query = "SELECT Username FROM Users WHERE Username LIKE '%{$myuser}%'";
 		$res = mysqli_query($conn,$query);
 		
 		
