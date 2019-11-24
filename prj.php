@@ -41,11 +41,17 @@ else
 	}
 	else
 	{
-		$query = "SELECT * FROM Users WHERE Username=$myuser";
-		$res = mysqli_query($conn,$query);
+		$myrows = 0;
+		if ($stmt = mysqli_prepare($conn, "SELECT FROM Users WHERE Username = ?")) {
+			mysqli_stmt_bind_param($stmt, 's', $myuser);
+			mysqli_stmt_execute($stmt);
+			$myrows = mysqli_stmt_affected_rows($stmt);
+			printf("Select: Affected %d rows\n", mysqli_stmt_affected_rows($stmt));
+			mysqli_stmt_close($stmt);
+		}
 		
 		
-		if(!$res)
+		if($myrows == 0)
 			printf("Could not find user: $myuser");
 		else
 		{
