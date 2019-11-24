@@ -59,7 +59,7 @@ else
 		$res = mysqli_query($conn,$query);
 		if (mysqli_fetch_array($res) == "")
 		{
-			printf("<p>Error: Could not find user: $myuser <br/> Perhaps you entered the wrong password or username?</p>");
+			printf("<p>Error: Could not find user $myuser <br/> Perhaps you entered the wrong password or username?</p>");
 			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 		}
 		else
