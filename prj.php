@@ -70,7 +70,7 @@ for ($row_num = 0; $row_num < $num_rows; $row_num++) {
     print "<tr align = 'center'>";
     $values = array_values($row);
     for ($index = 0; $index < $num_fields; $index++){
-        $value = htmlspecialchars($values[2 * $index + 1]);
+        $value = htmlspecialchars($values[$index]);
         print "<th>" . $value . "</th> ";
     }
     print "</tr>";
