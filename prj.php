@@ -37,47 +37,19 @@ mysqli_stmt_close($stmt);
 //Run the Select query
 printf("Reading data from table: \n");
 $res = mysqli_query($conn, 'SELECT * FROM Users');
+echo "<table><th><td colspan="2"><h2>MyUsers</h2></td></th>";
+echo "<th><td>Username</td><td>Score</td>";
 while ($row = mysqli_fetch_assoc($res)) {
 echo "<tr><td>" . $row['Username'] . "</td><td>" . $row['Score'] . "</td></tr>";
-var_dump($row);
 }
+echo "</table>";
 
 if (!$res) {
     print "Error - the query could not be executed";
     $error = mysqli_error();
     print "<p>" . $error . "</p>";
     exit;
-}	
-
-// Get the number of rows in the result, as well as the first row
-//  and the number of fields in the rows
-$num_rows = mysqli_num_rows($res);
-//print "Number of rows = $num_rows <br />";
-
-print "<table><caption> <h2> MyUsers($num_rows) </h2> </caption>";
-print "<tr align = 'center'>";
-
-$row = mysqli_fetch_array($res);
-$num_fields = mysqli_num_fields($res);
-
-// Produce the column labels
-$keys = array_keys($row);
-for ($index = 0; $index < $num_fields; $index++) 
-    print "<th>" . $keys[$index] . "</th>";
-print "</tr>";
-    
-// Output the values of the fields in the rows
-for ($row_num = 0; $row_num < $num_rows; $row_num++) {
-    print "<tr align = 'center'>";
-    $values = array_values($row);
-    for ($index = 0; $index < $num_fields; $index++){
-        $value = htmlspecialchars($values[$index]);
-        print "<th>" . $value . "</th> ";
-    }
-    print "</tr>";
-    $row = mysqli_fetch_array($res);
-}
-print "</table>";	
+}		
 	
 	
 //Close the connection
