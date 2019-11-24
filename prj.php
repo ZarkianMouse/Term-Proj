@@ -48,7 +48,7 @@ else
 			//printf("Could not find user: "+$myuser);
 		//else
 		//{
-			printf("Welcome " +$myuser);
+			printf("Welcome $myuser");
 			if($action == "display")
     $query = "";
 else if ($action == "update")
@@ -115,7 +115,7 @@ for ($row_num = 0; $row_num < $num_rows; $row_num++) {
 print "</table>";
 }
 		}
-	}
+	
 
 
 
