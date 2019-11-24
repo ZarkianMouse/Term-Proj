@@ -44,8 +44,8 @@ else
 		$myrows = 0;
 		$query = "SELECT Username FROM Users WHERE Username LIKE '%{$myuser}%'";
 		$res = mysqli_query($conn,$query);
-		
-		if (!my_sqli_fetch_array($res))
+		//$row = my_sqli_fetch_array($res);
+		if (my_sqli_fetch_array($res) == "")
 		{
 			echo "Could not find user: $myuser";
 		}
