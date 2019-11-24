@@ -41,13 +41,13 @@ else
 	}
 	else
 	{
-		$query = "SELECT * FROM Users WHERE Username=$myuser";
-		$res = mysqli_query($conn,$query);
+		//$query = "SELECT * FROM Users WHERE Username=$myuser";
+		//$res = mysqli_query($conn,$query);
 		
-		if(!$res)
-			printf("Could not find user: "+$myuser);
-		else
-		{
+		//if(!$res)
+			//printf("Could not find user: "+$myuser);
+		//else
+		//{
 			printf("Welcome " +$myuser);
 			if($action == "display")
     $query = "";
