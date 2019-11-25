@@ -42,7 +42,7 @@ else
 		else
 		{
 			$pass_row = mysqli_fetch_array($res);
-			if (htmlspecialchars($pass_row["Passwd"] != $mypass))
+			if (htmlspecialchars($pass_row["Passwd"]) != $mypass)
 			{
 				printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
 					<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
