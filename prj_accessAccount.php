@@ -32,7 +32,7 @@ else
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}	
 
-		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%' && Passwd LIKE '%{$mypass}%'";
+		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%'";// && Passwd LIKE '%{$mypass}%'";
 		$res = mysqli_query($conn,$query);
 		if (mysqli_fetch_array($res) == "")
 		{
@@ -41,41 +41,49 @@ else
 		}
 		else
 		{
-			
-			printf("<div class=\"welcome\"><span>Welcome <strong>$myuser</strong></span>
-					<div class=\"nav\"><button onclick=\"window.location.href = 'index.html';\">Logout</button>
-					<button onclick=\"window.location.href = 'prj_deleteAccount.html';\">Delete Account</button>
-					<button onclick=\"window.location.href = 'ind.html';\">Go to Game</button></div></div>");
-    
-			// Final Display of All Entries
-			$query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
-			$result = mysqli_query($conn,$query);
-			$num_rows = mysqli_num_rows($result);
-			
-			$row = mysqli_fetch_array($result);
-			$num_fields = mysqli_num_fields($result);
-			$keys = array_keys($row);
-			print "<table><caption>Game High Scores</caption>";
-			print "<tr align = 'center'>";
-			for ($index = 0; $index < $num_fields; $index++)
+			$pass_row = mysqli_fetch_array($res);
+			if (htmlspecialchars($pass_row["Passwd"] != $mypass))
 			{
-				print "<th>" . $keys[2 * $index + 1] . "</th>";
+				printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
+					<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 			}
-    
-			print "</tr>";
-    
-			// Output the values of the fields in the rows
-			for ($row_num = 0; $row_num < $num_rows; $row_num++) {
-    			print "<tr align = 'center'>";
-    			$values = array_values($row);
-    			for ($index = 0; $index < $num_fields; $index++){
-					$value = htmlspecialchars($values[2 * $index + 1]);
-					print "<td>" . $value . "</td> ";
-    			}
-   		 		print "</tr>";
-    			$row = mysqli_fetch_array($result);
+			else
+			{
+				printf("<div class=\"welcome\"><span>Welcome <strong>$myuser</strong></span>
+						<div class=\"nav\"><button onclick=\"window.location.href = 'index.html';\">Logout</button>
+						<button onclick=\"window.location.href = 'prj_deleteAccount.html';\">Delete Account</button>
+						<button onclick=\"window.location.href = 'ind.html';\">Go to Game</button></div></div>");
+
+				// Final Display of All Entries
+				$query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
+				$result = mysqli_query($conn,$query);
+				$num_rows = mysqli_num_rows($result);
+
+				$row = mysqli_fetch_array($result);
+				$num_fields = mysqli_num_fields($result);
+				$keys = array_keys($row);
+				print "<table><caption>Game High Scores</caption>";
+				print "<tr align = 'center'>";
+				for ($index = 0; $index < $num_fields; $index++)
+				{
+					print "<th>" . $keys[2 * $index + 1] . "</th>";
+				}
+
+				print "</tr>";
+
+				// Output the values of the fields in the rows
+				for ($row_num = 0; $row_num < $num_rows; $row_num++) {
+					print "<tr align = 'center'>";
+					$values = array_values($row);
+					for ($index = 0; $index < $num_fields; $index++){
+						$value = htmlspecialchars($values[2 * $index + 1]);
+						print "<td>" . $value . "</td> ";
+					}
+					print "</tr>";
+					$row = mysqli_fetch_array($result);
+				}
+				print "</table>";
 			}
-			print "</table>";
 		}	
 	
 }
