@@ -34,14 +34,14 @@ else
 
 		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%'";// && Passwd LIKE '%{$mypass}%'";
 		$res = mysqli_query($conn,$query);
-		if (mysqli_fetch_array($res) == "")
+		$pass_row = mysqli_fetch_array($res)
+		if (row == "")
 		{
 			printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
 					<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 		}
 		else
 		{
-			$pass_row = mysqli_fetch_array($res);
 			if (htmlspecialchars($pass_row["Passwd"]) != $mypass)
 			{
 				printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
