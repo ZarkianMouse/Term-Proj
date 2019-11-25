@@ -32,9 +32,6 @@ else
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}	
 
-		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%'";// && Passwd LIKE '%{$mypass}%'";
-		$res = mysqli_query($conn,$query);
-		$pass_row = mysqli_fetch_array($res)
 		if (row == "")
 		{
 			printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
