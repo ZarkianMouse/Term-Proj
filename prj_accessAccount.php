@@ -34,18 +34,23 @@ else
 
 		$query = "SELECT Passwd FROM Users WHERE Username LIKE '%{$myuser}%'";//&& Passwd LIKE '%{$mypass}%'";
 		$res = mysqli_query($conn,$query);
-		if (mysqli_fetch_array($res) == "")
+		if (mysqli_fetch_assoc($res) == "")
 		{
 			printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
 					<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 		}
 		else
 		{
+			$query = "SELECT Score FROM Users WHERE Username LIKE '%{$myuser}%'";
+			$score_res = mysqli_query($conn,$query);
+			$my_score = mysqli_fetch_assoc($score_res);
+			$myscore = htmlspecialchars($my_score["Score"]);
 			
 			printf("<div class=\"welcome\"><span>Welcome <strong>$myuser</strong></span>
 					<div class=\"nav\"><button onclick=\"window.location.href = 'index.html';\">Logout</button>
 					<button onclick=\"window.location.href = 'prj_deleteAccount.html';\">Delete Account</button>
-					<button onclick=\"window.location.href = 'ind.html';\">Go to Game</button></div></div>");
+					<button onclick=\"window.location.href = 'ind.html';\">Go to Game</button></div>
+					<div style=\"font-size: 20; margin-top: 20;\"><em>Your High Score: <strong>$myscore</strong></em></div></div>");
     
 			// Final Display of All Entries
 			$query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
@@ -55,7 +60,7 @@ else
 			$row = mysqli_fetch_array($result);
 			$num_fields = mysqli_num_fields($result);
 			$keys = array_keys($row);
-			print "<table><caption>Game High Scores</caption>";
+			print "<table><caption>Leaderboard</caption>";
 			print "<tr align = 'center'>";
 			for ($index = 0; $index < $num_fields; $index++)
 			{
