@@ -49,6 +49,10 @@ table th {
 	height: 50%;
 }
 
+form.myform {
+	border-color: white;
+}
+
 .submit {
 	background-color: grey;
 	color: black;
