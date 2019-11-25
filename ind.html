@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+	<link rel="stylesheet" type="text/css" href="./prj_style.css">
+	
+  
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Bosque Treasure Hunt</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+	
+	
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Bosque.json", {onProgress: UnityProgress});
+    </script>
+  </head>
+  <body>
+	  
+    <div class="webgl-content">
+		
+      <div id="unityContainer" style="width: 80%; height: 60%"></div>
+      <div class="footer">
+		<p>
+        <div class="webgl-logo"></div>
+		
+        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+        <div class="title">Bosque Treasure Hunt</div>
+		<div class="myform">
+		<table>
+		<form action = "prj_updateScore.php" method = "post">
+			<div class="myform">
+				<tr>
+					<th>Update High Score</th>
+				</tr>
+				<tr>
+					<td class="ctr">score <input type="number" name="score" min="0" step="5"></td>
+				</tr>
+				<tr>
+					<td class="ctr">username <input type="text" name="username"></td>
+				</tr>
+				<tr>
+					<td class="ctr">password <input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td class="rgt"><input type = "submit"  value = "Submit" /> </td>
+				</tr>
+				<tr>
+					<td class="ctr">Note: Must have quit the game for this form to work properly</td>
+				</tr>
+				</div>
+		</form>
+			<tr>
+					<td class="submit ctr"><button onclick="window.location.href = 'index.html';">Return to Login Page</button>
+											<td>
+				</tr>
+		</table>
+		
+		
+	</div>
+	
+		
+      </div>
+	 </div>
+	 
+
+	
+  </body>
+  <footer>
+	
+  </footer>
+</html>

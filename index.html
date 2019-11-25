@@ -2,29 +2,28 @@
 <html>
 <head>
 	<title>Term Proj Home</title>
+	<link rel="stylesheet" type="text/css" href="./prj_style.css">
 </head>
 <body>
-	<h1>Welcome to Naomi's Term Project Homepage</h1>
+	<h1 class="ctr">Welcome to Naomi's Term Project Homepage</h1>
 	<div>
-		<h2>Log in to see the magic</h2>
+		
 		<form action = "prj_accessAccount.php" method = "post">
 			<table>
+				<tr><th>Log in to see the magic</th></tr>
 				<tr>
-					<td>username</td>
-					<td><input type="text" name="username"></td>
+					<td class="ctr">username <input type="text" name="username"></td>
 				</tr>
 				<tr>
-					<td>password</td>
-					<td><input type="password" name="password"></td>
+					<td class="ctr">password <input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td class="rgt"><input type = "submit"  value = "Login" /></td>
 				</tr>
 			</table>
-			<p />
-			<p>
-				<input type = "submit"  value = "Login" />
-			</p>
 		</form>
 	
-	<p> Don't have an account yet? <br\>
+	<p class="ctr"> Don't have an account yet? <br\>
 	<button onclick="window.location.href = 'prj_addAccount.html';">Create New Account</button>
 	</p>
 		

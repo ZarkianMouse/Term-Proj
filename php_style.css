@@ -1,0 +1,57 @@
+
+
+table {
+	table-layout: fixed;
+	height: 70%;
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	border-radius: 25px;
+	border-color: black;
+	border-style: solid;
+	background-color: green;
+	color: white;
+}
+
+table caption {
+	font-size: 26;
+	font-weight: bold;
+	border-radius: 25px;
+	border-color: white;
+	border-style: ridge;
+	background-color: yellow;
+	color: black;
+}
+
+table td {
+	font-size: 20;
+	border-radius: 30px;
+	border-top: 1px dashed yellow;
+	border-bottom: 1px dashed yellow;
+}
+
+table th {
+	font-size: 23;
+	border-radius: 30px;
+	border-bottom: 1px solid green;
+	color: #343404 ;
+	background-color: #99BD26;
+}
+
+.welcome {
+	font-size: 42;
+	text-align: center;
+}
+.error {
+	font-size: 20;
+	text-align: center;
+}
+
+.ctr {
+	text-align: center;
+}
+
+.rgt {
+	text-align: right;
+}

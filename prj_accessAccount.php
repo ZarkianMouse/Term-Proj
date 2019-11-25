@@ -1,11 +1,12 @@
 <html>
 
 <head>
-	<title>Hello World</title>
-	<h1> Hello</h1>
+	<link rel="stylesheet" type="text/css" href="./php_style.css">
+	<title>User Home</title>
 </head>
 
 <body>
+
 <?php
     
 // Get input data
@@ -18,8 +19,8 @@ $db_name = 'term_proj';
 
 if ($myuser == "" || $mypass == "")
 {
-	echo "Cannot proceed with query: All form fields must be filled in\n";
-	printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+	printf("<div class=\"error\">Cannot proceed with query: All form fields must be filled in\n
+				<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return to Main\"></form></div>");
 }
 else
 {
@@ -35,34 +36,27 @@ else
 		$res = mysqli_query($conn,$query);
 		if (mysqli_fetch_array($res) == "")
 		{
-			printf("<p>Error: Could not find user: $myuser <br/> Perhaps you entered the wrong password or username?</p>");
-			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+			printf("<div class=\"error\"><p>Error: Could not find user <strong>$myuser</strong> <br/> Perhaps you entered the wrong password or username?</p>
+					<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
 		}
 		else
 		{
-			printf("<p>Welcome $myuser</p>");
-			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Logout\"></form>");
-			printf("<button onclick=\"window.location.href = 'prj_deleteAccount.html';\">Delete Account</button>");
-    				$query = "";
-				/* //Run the Update statement
-				$new_score = 100;
-				if ($stmt = mysqli_prepare($conn, "UPDATE Users SET Score = ? WHERE Username = ?")) {
-					mysqli_stmt_bind_param($stmt, 'ds', $new_score, $myuser);
-					mysqli_stmt_execute($stmt);
-					//Close the connection
-					mysqli_stmt_close($stmt);
-				}
-				printf("<p>User $myuser: Congrats! You have achieved a new high score</p>"); */
+			
+			printf("<div class=\"welcome\"><span>Welcome <strong>$myuser</strong></span>
+					<div class=\"nav\"><button onclick=\"window.location.href = 'index.html';\">Logout</button>
+					<button onclick=\"window.location.href = 'prj_deleteAccount.html';\">Delete Account</button>
+					<button onclick=\"window.location.href = 'ind.html';\">Go to Game</button></div></div>");
     
 			// Final Display of All Entries
 			$query = "SELECT Username, Score FROM Users ORDER BY Score DESC,Username LIMIT 0,5";
 			$result = mysqli_query($conn,$query);
 			$num_rows = mysqli_num_rows($result);
-			print "<table><caption>High Scores</caption>";
-			print "<tr align = 'center'>";
+			
 			$row = mysqli_fetch_array($result);
 			$num_fields = mysqli_num_fields($result);
 			$keys = array_keys($row);
+			print "<table><caption>Game High Scores</caption>";
+			print "<tr align = 'center'>";
 			for ($index = 0; $index < $num_fields; $index++)
 			{
 				print "<th>" . $keys[2 * $index + 1] . "</th>";
@@ -76,7 +70,7 @@ else
     			$values = array_values($row);
     			for ($index = 0; $index < $num_fields; $index++){
 					$value = htmlspecialchars($values[2 * $index + 1]);
-					print "<th>" . $value . "</th> ";
+					print "<td>" . $value . "</td> ";
     			}
    		 		print "</tr>";
     			$row = mysqli_fetch_array($result);

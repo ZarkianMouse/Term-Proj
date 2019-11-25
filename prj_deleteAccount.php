@@ -1,7 +1,8 @@
 <html>
 
 <head>
-	<title>Hello World</title>
+	<title>Deleting Account</title>
+	<link rel="stylesheet" type="text/css" href="./php_style.css">
 </head>
 
 <body>
@@ -16,8 +17,8 @@ $password = 'M4W1srtA0l9';
 $db_name = 'term_proj';
 if ($myuser == "" || $mypass == "")
 {
-	echo "Cannot proceed with query: All form fields must be filled in\n";
-	printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+	printf("<div class=\"error\">Cannot proceed with query: All form fields must be filled in\n
+				<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form></div>");
 }
 else
 {
@@ -34,13 +35,12 @@ else
 		$res = mysqli_query($conn,$query);
 		if (mysqli_fetch_array($res) == "")
 		{
-			printf("<p>Error: Could not find user: $myuser <br/> Perhaps you entered the wrong password or username?</p>");
-			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+			printf("<div class=\"error\"><p>Error: Could not find user <strong>$name</strong> <br/> Perhaps you entered the wrong password or username?</p>
+				<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return to Main\"></form></div>");
 		}
 		else
 		{
-			printf("<p>Welcome $myuser</p>");
-			printf("<form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form>");
+			
 
 				//Run the Delete statement
 				if ($stmt = mysqli_prepare($conn, "DELETE FROM Users WHERE Username = ?")) {
@@ -48,7 +48,11 @@ else
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_close($stmt);
 				}
-				printf("<p>User $myuser : Your account was deleted successfully</p>");
+				
+				printf("<div class=\"welcome\"<p>Hello <strong>$myuser</strong></p>
+					<div class=\"error\"><p>Your account was deleted successfully</p></div>
+					<div class=\"nav\"><form action=\"index.html\" target=\"_self\"><input type=\"submit\" value=\"Return\"></form></div></div>"
+					);
 		
 			
     
