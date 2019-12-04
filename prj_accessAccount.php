@@ -44,10 +44,8 @@ else
 		}
 		else
 		{
-			$query = "SELECT Score FROM Users WHERE Username LIKE '%{$myuser}%'";
-			$score_res = mysqli_query($conn,$query);
-			$my_score = mysqli_fetch_assoc($score_res);
-			$myscore = htmlspecialchars($my_score["Score"]);
+		
+			$myscore = $user_row["Score"];
 			
 			printf("<div class=\"welcome\"><span>Welcome <strong>$myuser</strong></span>
 					<div class=\"nav\"><button onclick=\"window.location.href = 'index.html';\">Logout</button>
